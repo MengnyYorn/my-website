@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials | My Webcode</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="nav page">
+            <a class="brand" href="index.html" aria-label="My Webcode home"><span class="logo-mark">&lt;/&gt;</span><span>MY WEBCODE</span></a>
+            <nav class="nav-links" aria-label="Main menu">
+                <details class="dropdown"><summary>Tutorials</summary><div class="dropdown-menu"><a href="#html">HTML</a><a href="#css">CSS</a><a href="#js">JS</a><a href="#javascript">JavaScript</a><a href="#java">Java</a><a href="#sql">SQL</a><a href="#database">Database</a><a href="#network">Network</a><a href="#react">React</a><a href="#nodejs">Node.js</a><a href="#bootstrap">Bootstrap</a></div></details>
+                <a href="exercises.html">Exercises</a><a href="certificates.html">Certificates</a><a href="playground.html">Spaces</a><a href="exercises.html">Practice</a><a href="dashboard.html">Academy</a><a href="index.html#services">All our Services</a>
+            </nav>
+            <div class="actions"><button class="action-button" type="button" data-open-dialog="create-dialog">Create new</button><button class="action-button" type="button" data-toggle-search aria-expanded="false">Search</button><button class="action-button primary" type="button" data-open-dialog="sign-in-dialog" data-sign-in-button>Sign in</button></div>
+        </div>
+        <form class="search-panel page" data-search-panel><input type="search" data-site-search placeholder="Search tutorials" aria-label="Search tutorials"><span data-search-status>Start typing</span></form>
+    </header>
+
+    <main class="page">
+        <section class="hero"><p class="eyebrow">TUTORIALS</p><h1>Choose a course and start learning.</h1><p>Use the Tutorials dropdown above, or select a course below.</p></section>
+        <section class="learning-dashboard" aria-label="Your learning dashboard">
+            <div><p class="eyebrow">YOUR DASHBOARD</p><h2>Keep building your skills.</h2><p>Your exercise progress is saved in this browser.</p></div>
+            <div class="dashboard-stat"><strong data-dashboard-progress>0 / 11</strong><span>courses completed</span></div>
+            <a class="button" href="exercises.html">Continue learning</a>
+        </section>
+
+        <section class="course-section">
+            <h2>All courses</h2><p>Choose beginner foundations or move into intermediate web-development skills.</p>
+            <div class="catalog-toolbar" aria-label="Course level filter">
+                <button type="button" data-course-filter="all" aria-pressed="true">All courses</button>
+                <button type="button" data-course-filter="beginner" aria-pressed="false">Beginner</button>
+                <button type="button" data-course-filter="intermediate" aria-pressed="false">Intermediate</button>
+            </div>
+            <div class="course-grid">
+                <article class="course-card" id="html" data-search-item data-course-level="beginner"><p class="course-meta"><span>Beginner</span><span>2 hours</span></p><h2>HTML</h2><p>Learn page structure, headings, links, images, and forms.</p><a href="exercises.html#html-exercise">Start HTML course</a></article>
+                <article class="course-card" id="css" data-search-item data-course-level="beginner"><p class="course-meta"><span>Beginner</span><span>3 hours</span></p><h2>CSS</h2><p>Style pages with layouts, colors, fonts, and responsive design.</p><a href="exercises.html#css-exercise">Start CSS course</a></article>
+                <article class="course-card" id="js" data-search-item data-course-level="beginner"><p class="course-meta"><span>Beginner</span><span>3 hours</span></p><h2>JS</h2><p>Learn JavaScript basics, variables, conditions, and loops.</p><a href="exercises.html#js-exercise">Start JS course</a></article>
+                <article class="course-card" id="javascript" data-search-item data-course-level="intermediate"><p class="course-meta"><span>Intermediate</span><span>5 hours</span></p><h2>JavaScript</h2><p>Make web pages interactive with functions and events.</p><a href="exercises.html#javascript-exercise">Start JavaScript course</a></article>
+                <article class="course-card" id="java" data-search-item data-course-level="intermediate"><p class="course-meta"><span>Intermediate</span><span>6 hours</span></p><h2>Java</h2><p>Learn classes, objects, and object-oriented programming.</p><a href="exercises.html#java-exercise">Start Java course</a></article>
+                <article class="course-card" id="sql" data-search-item data-course-level="intermediate"><p class="course-meta"><span>Intermediate</span><span>4 hours</span></p><h2>SQL</h2><p>Query, update, and organize data in relational databases.</p><a href="exercises.html#sql-exercise">Start SQL course</a></article>
+                <article class="course-card" id="database" data-search-item data-course-level="intermediate"><p class="course-meta"><span>Intermediate</span><span>5 hours</span></p><h2>Database</h2><p>Store and query information using tables and SQL.</p><a href="exercises.html#database-exercise">Start Database course</a></article>
+                <article class="course-card" id="network" data-search-item data-course-level="intermediate"><p class="course-meta"><span>Intermediate</span><span>4 hours</span></p><h2>Network</h2><p>Understand internet, devices, protocols, and security basics.</p><a href="exercises.html#network-exercise">Start Network course</a></article>
+                <article class="course-card" id="react" data-search-item data-course-level="intermediate"><p class="course-meta"><span>Intermediate</span><span>6 hours</span></p><h2>React</h2><p>Build modern, reusable user interfaces with components.</p><a href="exercises.html#react-exercise">Start React course</a></article>
+                <article class="course-card" id="nodejs" data-search-item data-course-level="intermediate"><p class="course-meta"><span>Intermediate</span><span>6 hours</span></p><h2>Node.js</h2><p>Use JavaScript to create server-side applications.</p><a href="exercises.html#nodejs-exercise">Start Node.js course</a></article>
+                <article class="course-card" id="bootstrap" data-search-item data-course-level="beginner"><p class="course-meta"><span>Beginner</span><span>2 hours</span></p><h2>Bootstrap</h2><p>Create responsive layouts quickly with a CSS framework.</p><a href="exercises.html#bootstrap-exercise">Start Bootstrap course</a></article>
+            </div>
+        </section>
+    </main>
+    <footer>Copyright 2026 My Webcode</footer>
+
+    <dialog id="create-dialog"><form class="dialog-content" data-create-form><h2>Create a new project</h2><p>Give your next coding project a name.</p><label>Project name<input name="project-name" required placeholder="My awesome project"></label><div class="dialog-actions"><button type="button" data-close-dialog="create-dialog">Cancel</button><button class="submit-button" type="submit">Create project</button></div></form></dialog>
+    <dialog id="sign-in-dialog"><form class="dialog-content" data-sign-in-form><h2>Welcome back</h2><p>Sign in to save your learning progress.</p><label>Email address<input name="email" type="email" required placeholder="you@example.com"></label><label>Password<input name="password" type="password" required minlength="6" placeholder="At least 6 characters"></label><div class="dialog-actions"><button type="button" data-close-dialog="sign-in-dialog">Cancel</button><button class="submit-button" type="submit">Sign in</button></div></form></dialog>
+    <p class="message" data-message role="status"></p>
+</body>
+</html>
