@@ -3,122 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Webcode | Learn to Code</title>
+    <title>My Website</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="app.js" defer></script>
 </head>
-<body id="home">
-    <header class="site-header">
-        <div class="nav page">
-            <a class="brand" href="index.html" aria-label="My Webcode home"><span class="logo-mark">&lt;/&gt;</span><span>MY WEBCODE</span></a>
-            <nav class="nav-links" aria-label="Main menu">
-                <details class="dropdown">
-                    <summary>Tutorials</summary>
-                    <div class="dropdown-menu">
-                        <a href="tutorials.html#html">HTML</a><a href="tutorials.html#css">CSS</a><a href="tutorials.html#js">JS</a>
-                        <a href="tutorials.html#javascript">JavaScript</a><a href="tutorials.html#java">Java</a><a href="tutorials.html#sql">SQL</a><a href="tutorials.html#database">Database</a><a href="tutorials.html#network">Network</a><a href="tutorials.html#react">React</a><a href="tutorials.html#nodejs">Node.js</a><a href="tutorials.html#bootstrap">Bootstrap</a>
-                    </div>
-                </details>
-                <a href="exercises.html">Exercises</a>
-                <a href="certificates.html">Certificates</a>
-                <a href="playground.html">Spaces</a>
-                <a href="exercises.html">Practice</a>
-                <a href="dashboard.html">Academy</a>
-                <a href="pricing.html">Pricing</a>
-            </nav>
-            <div class="actions">
-                <button class="action-button" type="button" data-open-dialog="create-dialog">Create new</button>
-                <button class="action-button" type="button" data-toggle-search aria-expanded="false">Search</button>
-                <a href="customer-login.html" class="action-button">Customer Login</a>
-                <button class="action-button primary" type="button" data-open-dialog="sign-in-dialog" data-sign-in-button>Sign in</button>
-            </div>
-        </div>
-        <form class="search-panel page" data-search-panel>
-            <input type="search" data-site-search placeholder="Search this page" aria-label="Search this page">
-            <span data-search-status>Start typing</span>
-        </form>
+<body>
+    <header>
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
 
-    <div class="topic-strip" aria-label="Popular topics">
-        <div class="page">
-            <a href="tutorials.html#html">HTML</a><a href="tutorials.html#css">CSS</a><a href="tutorials.html#javascript">JAVASCRIPT</a><a href="tutorials.html#sql">SQL</a><a href="tutorials.html#java">JAVA</a><a href="tutorials.html#bootstrap">BOOTSTRAP</a><a href="tutorials.html#react">REACT</a><a href="tutorials.html#nodejs">NODE.JS</a><a href="tutorials.html#database">DATABASE</a><a href="tutorials.html#network">NETWORK</a>
-        </div>
-    </div>
-
     <main>
-        <section class="hero home-hero">
-            <p class="eyebrow">MY WEBCODE</p>
-            <h1>Learn to code.</h1>
-            <p>Build websites, understand programming, and practice real skills with beginner-friendly courses.</p>
-            <form class="hero-search" data-hero-search>
-                <input type="search" name="course" placeholder="Search our tutorials, e.g. HTML" aria-label="Search tutorials">
-                <button type="submit">Search</button>
+        <section id="home">
+            <h2>Home</h2>
+            <p>Welcome to my website.</p>
+        </section>
+
+        <section id="about">
+            <h2>About</h2>
+            <p>This is my awesome website.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <form>
+                <input type="text" placeholder="Your name">
+                <input type="email" placeholder="Your email">
+                <button type="submit">Send</button>
             </form>
-            <a class="hero-helper" href="tutorials.html">Not sure where to begin?</a>
-        </section>
-
-        <section class="quick-start" aria-label="Start learning with My Webcode">
-            <article><span class="quick-icon">1</span><div><h2>Choose a course</h2><p>Explore HTML, CSS, JavaScript, SQL, React, Node.js, and more.</p><a href="tutorials.html">View all 11 courses</a></div></article>
-            <article><span class="quick-icon">2</span><div><h2>Complete exercises</h2><p>Practice every topic and track the courses you have completed.</p><a href="exercises.html">Start practicing</a></div></article>
-            <article><span class="quick-icon">3</span><div><h2>Earn a certificate</h2><p>Finish all exercises, sign in, and request your certificate.</p><a href="certificates.html">View certificates</a></div></article>
-        </section>
-
-        <section class="showcase" id="html" data-search-item>
-            <div><h2>HTML</h2><p>The language used to build the structure of web pages.</p><div class="showcase-actions"><a href="tutorials.html#html">Learn HTML</a><a href="exercises.html#html-exercise">HTML Exercise</a></div></div>
-            <div class="code-window"><pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;body&gt;
-  &lt;h1&gt;My Website&lt;/h1&gt;
-  &lt;p&gt;Start learning code.&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre></div>
-        </section>
-
-        <section class="showcase css" id="css" data-search-item>
-            <div><h2>CSS</h2><p>The language used to style colors, layouts, and responsive web pages.</p><div class="showcase-actions"><a href="tutorials.html#css">Learn CSS</a><a href="exercises.html#css-exercise">CSS Exercise</a></div></div>
-            <div class="code-window"><pre><code>body {
-  background: #ffffff;
-  font-family: Arial, sans-serif;
-}
-
-h1 {
-  color: #087f69;
-}</code></pre></div>
-        </section>
-
-        <section class="showcase javascript" id="javascript" data-search-item>
-            <div><h2>JavaScript</h2><p>The language used to make web pages respond, change, and interact with people.</p><div class="showcase-actions"><a href="tutorials.html#javascript">Learn JavaScript</a><a href="exercises.html#javascript-exercise">JavaScript Exercise</a></div></div>
-            <div class="code-window"><pre><code>function welcome() {
-  const message = 'Welcome!';
-  console.log(message);
-}
-
-welcome();</code></pre></div>
-        </section>
-
-        <section class="showcase sql" id="sql" data-search-item>
-            <div><h2>SQL</h2><p>A language for finding, changing, and organizing information in databases.</p><div class="showcase-actions"><a href="tutorials.html#sql">Learn SQL</a><a href="exercises.html#sql-exercise">SQL Exercise</a></div></div>
-            <div class="code-window"><pre><code>SELECT name, email
-FROM students
-WHERE active = true
-ORDER BY name;</code></pre></div>
-        </section>
-
-        <section class="home-services" id="services">
-            <h2>More ways to learn</h2>
-            <div class="service-grid">
-                <article class="service-card" id="spaces" data-search-item><h3>Spaces</h3><p>Create and run your own HTML, CSS, and JavaScript projects.</p><a href="playground.html">Open code editor</a></article>
-                <article class="service-card" id="practice" data-search-item><h3>Practice</h3><p>Build confidence with coding challenges and track your progress.</p><a href="exercises.html">Practice now</a></article>
-                <article class="service-card" id="academy" data-search-item><h3>Academy</h3><p>Follow your learning path and see your completed courses.</p><a href="dashboard.html">Open dashboard</a></article>
-            </div>
         </section>
     </main>
 
-    <footer>Copyright 2026 My Webcode</footer>
+    <footer>
+        <p>&copy; 2026 My Website. All rights reserved.</p>
+    </footer>
 
-    <dialog id="create-dialog"><form class="dialog-content" data-create-form><h2>Create a new project</h2><p>Give your next coding project a name.</p><label>Project name<input name="project-name" required placeholder="My awesome project"></label><div class="dialog-actions"><button type="button" data-close-dialog="create-dialog">Cancel</button><button class="submit-button" type="submit">Create project</button></div></form></dialog>
-    <dialog id="sign-in-dialog"><form class="dialog-content" data-sign-in-form><h2>Welcome back</h2><p>Sign in to save your learning progress.</p><label>Email address<input name="email" type="email" required placeholder="you@example.com"></label><label>Password<input name="password" type="password" required minlength="6" placeholder="At least 6 characters"></label><div class="dialog-actions"><button type="button" data-close-dialog="sign-in-dialog">Cancel</button><button class="submit-button" type="submit">Sign in</button></div></form></dialog>
-    <dialog id="register-dialog"><form class="dialog-content" data-register-form><h2>Create your account</h2><p>Register to save progress and receive certificates.</p><label>Your name<input name="name" required placeholder="Your name"></label><label>Email address<input name="email" type="email" required placeholder="you@example.com"></label><label>Password<input name="password" type="password" required minlength="6" placeholder="At least 6 characters"></label><div class="dialog-actions"><button type="button" data-close-dialog="register-dialog">Cancel</button><button class="submit-button" type="submit">Register</button></div></form></dialog>
-    <p class="message" data-message role="status"></p>
+    <script src="app.js"></script>
 </body>
 </html>
