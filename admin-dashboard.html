@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | My Webcode</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #f8fafc;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .admin-header h1 {
+            margin: 0;
+            color: #312e81;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            color: #64748b;
+        }
+
+        .tab-button.active {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+
+        .tab-button:hover {
+            border-color: #4f46e5;
+            color: #4f46e5;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #4f46e5;
+        }
+
+        .stat-card h3 {
+            margin: 0 0 0.5rem;
+            font-size: 0.9rem;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #312e81;
+            margin: 0;
+        }
+
+        .stat-card .change {
+            font-size: 0.85rem;
+            color: #15803d;
+            margin-top: 0.5rem;
+        }
+
+        .data-table {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .table-header {
+            padding: 1.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-header h3 {
+            margin: 0;
+            color: #312e81;
+        }
+
+        .search-box {
+            padding: 0.5rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.4rem;
+            font-size: 0.9rem;
+            width: 250px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table thead {
+            background: #f1f5f9;
+        }
+
+        table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #475569;
+            font-size: 0.9rem;
+        }
+
+        table tr:hover {
+            background: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .badge-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-completed {
+            background: #dbeafe;
+            color: #0c4a6e;
+        }
+
+        .action-button {
+            padding: 0.5rem 1rem;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .action-button:hover {
+            background: #4338ca;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #94a3b8;
+        }
+
+        .export-btn {
+            padding: 0.5rem 1.5rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .export-btn:hover {
+            background: #059669;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #312e81;
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .chart-placeholder {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="nav page">
+            <a class="brand" href="index.html"><span class="logo-mark">&lt;/&gt;</span><span>MY WEBCODE ADMIN</span></a>
+            <nav class="nav-links">
+                <a href="index.html">← Back to Website</a>
+                <a href="admin-dashboard.html" class="active">Dashboard</a>
+                <a href="#" id="logoutBtn">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-container">
+        <div class="admin-header">
+            <div>
+                <h1>📊 Admin Dashboard</h1>
+                <p style="margin: 0.5rem 0 0; color: #64748b;">System Management & Customer Analytics</p>
+            </div>
+            <div style="text-align: right;">
+                <p style="margin: 0; color: #312e81; font-weight: 600;">Welcome, Admin</p>
+                <p style="margin: 0.25rem 0 0; font-size: 0.9rem; color: #64748b;" id="currentTime"></p>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="admin-nav">
+            <button class="tab-button active" onclick="switchTab('overview')">📈 Overview</button>
+            <button class="tab-button" onclick="switchTab('customers')">👥 Customers</button>
+            <button class="tab-button" onclick="switchTab('payments')">💳 Payments</button>
+            <button class="tab-button" onclick="switchTab('subscriptions')">🔄 Subscriptions</button>
+            <button class="tab-button" onclick="switchTab('refunds')">↩️ Refunds</button>
+            <button class="tab-button" onclick="switchTab('emails')">📧 Email Queue</button>
+            <button class="tab-button" onclick="switchTab('logs')">📋 Audit Logs</button>
+        </div>
+
+        <!-- OVERVIEW TAB -->
+        <div id="overview" class="tab-content active">
+            <h2 class="section-title">System Overview</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Customers</h3>
+                    <p class="value" id="totalCustomers">0</p>
+                    <p class="change" id="customerChange">Loading...</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Subscriptions</h3>
+                    <p class="value" id="activeSubscriptions">0</p>
+                    <p class="change">Last 30 days</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Revenue</h3>
+                    <p class="value" id="totalRevenue">$0</p>
+                    <p class="change" id="revenueChange">This month</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending Refunds</h3>
+                    <p class="value" id="pendingRefunds">0</p>
+                    <p class="change">Awaiting action</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Email Queue</h3>
+                    <p class="value" id="emailQueueCount">0</p>
+                    <p class="change">Pending send</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Verified Users</h3>
+                    <p class="value" id="verifiedUsers">0</p>
+                    <p class="change">Email verified</p>
+                </div>
+            </div>
+
+            <div class="chart-placeholder">
+                📊 Revenue Chart (Coming Soon - Integration with charts library)
+            </div>
+        </div>
+
+        <!-- CUSTOMERS TAB -->
+        <div id="customers" class="tab-content">
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>All Customers</h3>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="search" class="search-box" id="customerSearch" placeholder="Search by email or name...">
+                        <button class="export-btn" onclick="exportCustomers()">📥 Export CSV</button>
+                    </div>
+                </div>
+                <table id="customersTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            <th>Verified</th>
+                            <th>Registered</th>
+                            <th>Last Login</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customersTableBody">
+                        <tr><td colspan="9" class="empty-state">Loading customers...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PAYMENTS TAB -->
+        <div id="payments" class="tab-content">
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>Payment History</h3>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="search" class="search-box" id="paymentSearch" placeholder="Search by transaction code...">
+                        <button class="export-btn" onclick="exportPayments()">📥 Export CSV</button>
+                    </div>
+                </div>
+                <table id="paymentsTable">
+                    <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Customer Email</th>
+                            <th>Plan</th>
+                            <th>Amount</th>
+                            <th>Transaction Code</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentsTableBody">
+                        <tr><td colspan="8" class="empty-state">Loading payments...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SUBSCRIPTIONS TAB -->
+        <div id="subscriptions" class="tab-content">
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>Active Subscriptions</h3>
+                    <button class="export-btn" onclick="exportSubscriptions()">📥 Export CSV</button>
+                </div>
+                <table id="subscriptionsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer Email</th>
+                            <th>Plan</th>
+                            <th>Amount</th>
+                            <th>Frequency</th>
+                            <th>Status</th>
+                            <th>Start Date</th>
+                            <th>Next Billing</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subscriptionsTableBody">
+                        <tr><td colspan="9" class="empty-state">Loading subscriptions...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- REFUNDS TAB -->
+        <div id="refunds" class="tab-content">
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>Refund Requests</h3>
+                    <button class="export-btn" onclick="exportRefunds()">📥 Export CSV</button>
+                </div>
+                <table id="refundsTable">
+                    <thead>
+                        <tr>
+                            <th>Refund ID</th>
+                            <th>Payment ID</th>
+                            <th>Customer Email</th>
+                            <th>Amount</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                            <th>Requested</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="refundsTableBody">
+                        <tr><td colspan="8" class="empty-state">Loading refunds...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- EMAIL QUEUE TAB -->
+        <div id="emails" class="tab-content">
+            <div class="stats-grid" style="margin-bottom: 1.5rem;">
+                <div class="stat-card">
+                    <h3>Pending Emails</h3>
+                    <p class="value" id="pendingEmails">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Sent Today</h3>
+                    <p class="value" id="sentToday">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Failed Emails</h3>
+                    <p class="value" id="failedEmails">0</p>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>Email Queue</h3>
+                    <button class="export-btn" onclick="exportEmailQueue()">📥 Export CSV</button>
+                </div>
+                <table id="emailsTable">
+                    <thead>
+                        <tr>
+                            <th>Email ID</th>
+                            <th>Recipient</th>
+                            <th>Email Type</th>
+                            <th>Subject</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Sent</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="emailsTableBody">
+                        <tr><td colspan="8" class="empty-state">Loading email queue...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- AUDIT LOGS TAB -->
+        <div id="logs" class="tab-content">
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>Audit Logs</h3>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="search" class="search-box" id="logSearch" placeholder="Search by action...">
+                        <button class="export-btn" onclick="exportLogs()">📥 Export CSV</button>
+                    </div>
+                </div>
+                <table id="logsTable">
+                    <thead>
+                        <tr>
+                            <th>Log ID</th>
+                            <th>Customer</th>
+                            <th>Action</th>
+                            <th>Entity Type</th>
+                            <th>Entity ID</th>
+                            <th>IP Address</th>
+                            <th>Timestamp</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logsTableBody">
+                        <tr><td colspan="8" class="empty-state">Loading audit logs...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: #64748b;">
+        Copyright 2026 My Webcode Admin Panel | Last updated: <span id="lastUpdate">--:--</span>
+    </footer>
+
+    <script>
+        // Initialize Dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTime();
+            loadDashboardData();
+            setInterval(updateTime, 1000);
+            setInterval(loadDashboardData, 30000); // Refresh every 30 seconds
+        });
+
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+            document.getElementById('lastUpdate').textContent = now.toLocaleTimeString();
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Load data for tab
+            if (tabName === 'customers') loadCustomers();
+            if (tabName === 'payments') loadPayments();
+            if (tabName === 'subscriptions') loadSubscriptions();
+            if (tabName === 'refunds') loadRefunds();
+            if (tabName === 'emails') loadEmailQueue();
+            if (tabName === 'logs') loadAuditLogs();
+        }
+
+        async function loadDashboardData() {
+            try {
+                // Fetch all data from API
+                const [customers, payments, subscriptions, refunds, emails] = await Promise.all([
+                    fetch('/api/customers').then(r => r.json()).catch(() => ({ customers: [] })),
+                    fetch('/api/payments').then(r => r.json()).catch(() => ({ payments: [] })),
+                    fetch('/api/subscriptions').then(r => r.json()).catch(() => ({ subscriptions: [] })),
+                    fetch('/api/refunds').then(r => r.json()).catch(() => ({ refunds: [] })),
+                    fetch('/api/email-queue/pending').then(r => r.json()).catch(() => ({ emails: [] }))
+                ]);
+
+                // Update stats
+                document.getElementById('totalCustomers').textContent = customers.customers?.length || '0';
+                document.getElementById('activeSubscriptions').textContent = subscriptions.subscriptions?.filter(s => s.status === 'active').length || '0';
+                document.getElementById('totalRevenue').textContent = '$' + (payments.payments?.reduce((sum, p) => sum + (p.amount || 0), 0) || 0).toFixed(2);
+                document.getElementById('pendingRefunds').textContent = refunds.refunds?.filter(r => r.status === 'pending').length || '0';
+                document.getElementById('emailQueueCount').textContent = emails.emails?.filter(e => e.status === 'pending').length || '0';
+                document.getElementById('verifiedUsers').textContent = customers.customers?.filter(c => c.verified).length || '0';
+
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+
+        async function loadCustomers() {
+            try {
+                const response = await fetch('/api/customers');
+                const data = await response.json();
+                const customers = data.customers || [];
+
+                const tbody = document.getElementById('customersTableBody');
+                if (customers.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="9" class="empty-state">No customers found</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = customers.map(c => `
+                    <tr>
+                        <td><code style="background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.8rem;">${c.id?.substring(0, 12)}...</code></td>
+                        <td>${c.fullName}</td>
+                        <td>${c.email}</td>
+                        <td>${c.phone || '--'}</td>
+                        <td><span class="badge badge-${c.status === 'active' ? 'active' : 'pending'}">${c.status}</span></td>
+                        <td>${c.verified ? '✅ Yes' : '❌ No'}</td>
+                        <td>${new Date(c.registeredAt).toLocaleDateString()}</td>
+                        <td>${c.lastLogin ? new Date(c.lastLogin).toLocaleDateString() : '--'}</td>
+                        <td><button class="action-button" onclick="viewCustomer('${c.id}')">View</button></td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading customers:', error);
+            }
+        }
+
+        async function loadPayments() {
+            try {
+                const response = await fetch('/api/customers');
+                const data = await response.json();
+                
+                // Mock payment data for demo
+                const tbody = document.getElementById('paymentsTableBody');
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Payment data from database API</td></tr>';
+            } catch (error) {
+                console.error('Error loading payments:', error);
+            }
+        }
+
+        async function loadSubscriptions() {
+            const tbody = document.getElementById('subscriptionsTableBody');
+            tbody.innerHTML = '<tr><td colspan="9" class="empty-state">Subscription data from database API</td></tr>';
+        }
+
+        async function loadRefunds() {
+            const tbody = document.getElementById('refundsTableBody');
+            tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Refund data from database API</td></tr>';
+        }
+
+        async function loadEmailQueue() {
+            try {
+                const response = await fetch('/api/email-queue/pending');
+                const data = await response.json();
+                const emails = data.emails || [];
+
+                const tbody = document.getElementById('emailsTableBody');
+                if (emails.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No pending emails</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = emails.map(e => `
+                    <tr>
+                        <td><code style="background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.8rem;">${e.id?.substring(0, 12)}...</code></td>
+                        <td>${e.recipientEmail}</td>
+                        <td>${e.emailType}</td>
+                        <td>${e.subject}</td>
+                        <td><span class="badge badge-${e.status}">${e.status}</span></td>
+                        <td>${new Date(e.createdAt).toLocaleDateString()}</td>
+                        <td>${e.sentAt ? new Date(e.sentAt).toLocaleDateString() : '--'}</td>
+                        <td><button class="action-button" onclick="resendEmail('${e.id}')">Resend</button></td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading email queue:', error);
+            }
+        }
+
+        async function loadAuditLogs() {
+            const tbody = document.getElementById('logsTableBody');
+            tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Audit logs from database</td></tr>';
+        }
+
+        function viewCustomer(customerId) {
+            alert(`Viewing customer: ${customerId}\n\nFull detail page coming soon!`);
+        }
+
+        function resendEmail(emailId) {
+            alert(`Resending email: ${emailId}`);
+        }
+
+        function exportCustomers() {
+            console.log('Exporting customers...');
+            alert('Exporting customers to CSV');
+        }
+
+        function exportPayments() {
+            console.log('Exporting payments...');
+            alert('Exporting payments to CSV');
+        }
+
+        function exportSubscriptions() {
+            console.log('Exporting subscriptions...');
+            alert('Exporting subscriptions to CSV');
+        }
+
+        function exportRefunds() {
+            console.log('Exporting refunds...');
+            alert('Exporting refunds to CSV');
+        }
+
+        function exportEmailQueue() {
+            console.log('Exporting email queue...');
+            alert('Exporting email queue to CSV');
+        }
+
+        function exportLogs() {
+            console.log('Exporting audit logs...');
+            alert('Exporting audit logs to CSV');
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Logging out...');
+            window.location.href = 'index.html';
+        });
+
+        // Search functionality
+        document.getElementById('customerSearch')?.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            document.querySelectorAll('#customersTableBody tr').forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

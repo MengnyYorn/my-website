@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP | My Webcode</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .otp-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 40px rgba(15,23,42,.1);
+        }
+
+        .otp-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .otp-header h1 {
+            margin: 0 0 0.5rem;
+            color: #312e81;
+        }
+
+        .otp-header p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .otp-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .otp-input-group {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .otp-input-group label {
+            font-weight: 700;
+            color: #312e81;
+        }
+
+        .otp-code-inputs {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+        }
+
+        .otp-digit-input {
+            width: 100%;
+            height: 60px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            border: 2px solid #cbd5e1;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .otp-digit-input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .otp-digit-input.filled {
+            background: #eff6ff;
+            border-color: #4f46e5;
+        }
+
+        .otp-text-input {
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.55rem;
+            font: inherit;
+            font-size: 0.95rem;
+        }
+
+        .otp-text-input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .verify-btn {
+            padding: 0.9rem 1.5rem;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 0.55rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .verify-btn:hover {
+            background: #4338ca;
+        }
+
+        .verify-btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        .otp-info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            color: #1e40af;
+            font-size: 0.9rem;
+        }
+
+        .resend-section {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .resend-section a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .resend-section a:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .timer {
+            font-weight: 700;
+            color: #4f46e5;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        .success-message {
+            color: #15803d;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body id="otp-verify">
+    <header class="site-header">
+        <div class="nav page">
+            <a class="brand" href="index.html" aria-label="My Webcode home"><span class="logo-mark">&lt;/&gt;</span><span>MY WEBCODE</span></a>
+            <nav class="nav-links" aria-label="Main menu">
+                <a href="index.html">Home</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="payment-history.html">Payments</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="otp-container">
+            <div class="otp-header">
+                <h1>Verify Your Email</h1>
+                <p id="verifyEmail">We sent a code to your email</p>
+            </div>
+
+            <form class="otp-form" id="otpVerifyForm" data-otp-verify>
+                <div class="otp-info">
+                    ✓ Enter the 6-digit code sent to your registered email address
+                </div>
+
+                <div class="otp-input-group">
+                    <label>Enter OTP Code</label>
+                    <div class="otp-code-inputs" id="otpInputs">
+                        <input type="text" class="otp-digit-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="otp-digit-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="otp-digit-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="otp-digit-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="otp-digit-input" maxlength="1" inputmode="numeric">
+                        <input type="text" class="otp-digit-input" maxlength="1" inputmode="numeric">
+                    </div>
+                    <input type="hidden" id="otpCode" name="otpCode">
+                    <span class="error-message" id="otpError"></span>
+                </div>
+
+                <div class="otp-input-group">
+                    <label for="referenceCode">Transaction/Reference Code (if applicable)</label>
+                    <input type="text" id="referenceCode" name="referenceCode" placeholder="e.g., TXN-1234567890" class="otp-text-input">
+                    <span class="error-message" id="referenceError"></span>
+                </div>
+
+                <button type="submit" class="verify-btn">Verify & Continue</button>
+
+                <div class="resend-section">
+                    <p>Didn't receive the code? <a onclick="resendOTP()">Resend</a> in <span class="timer" id="timer">60</span>s</p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>Copyright 2026 My Webcode</footer>
+
+    <p class="message" data-message role="status"></p>
+
+    <script src="app.js" defer></script>
+    <script src="customer-auth.js" defer></script>
+</body>
+</html>

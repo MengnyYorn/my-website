@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login | My Webcode</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 40px rgba(15,23,42,.1);
+        }
+
+        .login-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            color: #312e81;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.55rem;
+            font: inherit;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: monospace;
+        }
+
+        .file-upload {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 0.75rem 1.2rem;
+            background: #4f46e5;
+            color: white;
+            border-radius: 0.55rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .file-input-label:hover {
+            background: #4338ca;
+        }
+
+        .file-name {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .id-preview {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .form-section {
+            border-top: 2px solid #e2e8f0;
+            padding-top: 1.5rem;
+        }
+
+        .form-section h3 {
+            margin: 0 0 1rem;
+            color: #312e81;
+            font-size: 1.05rem;
+        }
+
+        .submit-btn {
+            padding: 0.9rem 1.5rem;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 0.55rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #4338ca;
+        }
+
+        .submit-btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        .form-footer {
+            text-align: center;
+            color: #64748b;
+        }
+
+        .form-footer a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        .success-message {
+            color: #15803d;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title h1 {
+            margin: 0 0 0.5rem;
+            color: #312e81;
+        }
+
+        .page-title p {
+            margin: 0;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body id="login">
+    <header class="site-header">
+        <div class="nav page">
+            <a class="brand" href="index.html" aria-label="My Webcode home"><span class="logo-mark">&lt;/&gt;</span><span>MY WEBCODE</span></a>
+            <nav class="nav-links" aria-label="Main menu">
+                <a href="index.html">Home</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="payment-history.html">Payments</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="login-container">
+            <div class="page-title">
+                <h1>Secure Login</h1>
+                <p>Create your account or sign in</p>
+            </div>
+
+            <form class="login-form" id="customerLoginForm" data-login-form>
+                <!-- Account Information -->
+                <div class="form-section">
+                    <h3>Account Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="John Doe">
+                        <span class="error-message" id="nameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="you@example.com">
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password *</label>
+                        <input type="password" id="password" name="password" required minlength="6" placeholder="At least 6 characters">
+                        <span class="error-message" id="passwordError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="+1 (555) 123-4567">
+                        <span class="error-message" id="phoneError"></span>
+                    </div>
+                </div>
+
+                <!-- ID Verification -->
+                <div class="form-section">
+                    <h3>ID Card Verification</h3>
+                    <p style="color: #64748b; margin: 0 0 1rem; font-size: 0.9rem;">Upload a clear photo of your ID card for verification</p>
+                    
+                    <div class="form-group">
+                        <label for="idType">ID Type *</label>
+                        <select id="idType" name="idType" required style="padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.55rem; font: inherit;">
+                            <option value="">Select ID Type</option>
+                            <option value="passport">Passport</option>
+                            <option value="national-id">National ID Card</option>
+                            <option value="driver-license">Driver's License</option>
+                            <option value="voter-id">Voter ID</option>
+                        </select>
+                        <span class="error-message" id="idTypeError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idNumber">ID Number *</label>
+                        <input type="text" id="idNumber" name="idNumber" required placeholder="Enter your ID number">
+                        <span class="error-message" id="idNumberError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ID Card Photo *</label>
+                        <div class="file-upload">
+                            <div class="file-input-wrapper">
+                                <label class="file-input-label" for="idPhoto">Choose File</label>
+                                <input type="file" id="idPhoto" name="idPhoto" accept="image/*" required>
+                            </div>
+                            <span class="file-name" id="idPhotoName">No file chosen</span>
+                        </div>
+                        <img id="idPhotoPreview" class="id-preview" style="display: none;">
+                        <span class="error-message" id="idPhotoError"></span>
+                    </div>
+                </div>
+
+                <!-- OTP Setup -->
+                <div class="form-section">
+                    <h3>OTP Verification</h3>
+                    <p style="color: #64748b; margin: 0 0 1rem; font-size: 0.9rem;">We'll send a one-time password to your email for verification</p>
+                    
+                    <div style="background: #eff6ff; padding: 1rem; border-radius: 0.5rem; color: #1e40af; font-size: 0.9rem;">
+                        <strong>Security Note:</strong> A verification code will be sent to your email after registration. You'll need to enter it to complete the verification process.
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn" id="submitBtn">Create Account & Get OTP</button>
+
+                <div class="form-footer">
+                    Already have an account? <a href="customer-login.html">Sign in here</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>Copyright 2026 My Webcode</footer>
+
+    <p class="message" data-message role="status"></p>
+
+    <script src="app.js" defer></script>
+    <script src="customer-auth.js" defer></script>
+</body>
+</html>

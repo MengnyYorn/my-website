@@ -1,0 +1,5 @@
+node_modules/
+mywebcode.sqlite
+data.sqlite
+.DS_Store
+.env

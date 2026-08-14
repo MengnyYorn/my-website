@@ -1,11 +1,13 @@
 # My Webcode - Complete Payment Integration Guide
 
 ## Overview
+
 Your website now has a complete payment system with PayPal integration, email notifications, refunds, invoices, and recurring subscriptions.
 
 ## Features Added
 
 ### 1. **Pricing Page** (`pricing.html`)
+
 - Three pricing tiers: Free, Pro ($9.99/month), Annual ($99.99/year)
 - PayPal payment buttons
 - FAQ section
@@ -13,6 +15,7 @@ Your website now has a complete payment system with PayPal integration, email no
 - Responsive design
 
 ### 2. **Payment History Page** (`payment-history.html`)
+
 - View subscription status
 - Transaction history with invoices
 - Manage subscriptions
@@ -20,6 +23,7 @@ Your website now has a complete payment system with PayPal integration, email no
 - Download invoices
 
 ### 3. **Email Notifications System** (`email-notifications.js`)
+
 - **Automatic Emails:**
   - Payment confirmation after purchase
   - Welcome email for new premium users
@@ -29,6 +33,7 @@ Your website now has a complete payment system with PayPal integration, email no
   - Renewal reminders
 
 ### 4. **Refund System** (`refund-system.js`)
+
 - 7-day money-back guarantee for Pro monthly
 - 30-day money-back guarantee for Annual plan
 - Request refund functionality
@@ -36,12 +41,14 @@ Your website now has a complete payment system with PayPal integration, email no
 - Refund status tracking
 
 ### 5. **Invoice Generation** (Built-in `payment-history.js`)
+
 - Professional invoice design
 - Download as PDF capability
 - Print invoices
 - Invoice history tracking
 
 ### 6. **Recurring Subscriptions** (`recurring-subscriptions.js`)
+
 - Subscription management
 - Pause/resume subscriptions
 - Cancel anytime
@@ -51,6 +58,7 @@ Your website now has a complete payment system with PayPal integration, email no
 ## Setup Instructions
 
 ### Step 1: Get PayPal Developer Account
+
 1. Go to https://developer.paypal.com
 2. Create/login to your account
 3. Go to "Apps & Credentials"
@@ -58,7 +66,9 @@ Your website now has a complete payment system with PayPal integration, email no
 5. Copy your **Client ID**
 
 ### Step 2: Update PayPal Client ID
+
 Replace `YOUR_PAYPAL_CLIENT_ID` in:
+
 - `pricing.html` - Line with PayPal SDK script
 - Make sure to use your actual Client ID from PayPal
 
@@ -67,7 +77,9 @@ Replace `YOUR_PAYPAL_CLIENT_ID` in:
 ```
 
 ### Step 3: Backend Setup (Optional but Recommended)
+
 For production, you should set up a backend server to:
+
 - Actually process emails (implement SMTP or email service)
 - Process refunds via PayPal API
 - Store payment data securely
@@ -75,6 +87,7 @@ For production, you should set up a backend server to:
 - Manage subscription webhooks from PayPal
 
 ### Step 4: Include All Scripts in Your Pages
+
 Make sure these scripts are loaded on pages that need them:
 
 ```html
@@ -114,6 +127,7 @@ The system includes 6 email templates:
 6. **Renewal Reminder** - Sent 3 days before renewal
 
 ### Email Queue System
+
 - Emails are queued in localStorage
 - Automatically processed every 30 seconds
 - In development: logs to console
@@ -122,11 +136,13 @@ The system includes 6 email templates:
 ## Refund Policy
 
 ### Pro Monthly Plan
+
 - **Window:** 7 days after purchase
 - **Amount:** 100% refund
 - **Process:** Request via payment history page
 
 ### Annual Plan
+
 - **Window:** 30 days after purchase
 - **Amount:** 100% refund
 - **Process:** Request via payment history page
@@ -134,6 +150,7 @@ The system includes 6 email templates:
 ## Testing Checklist
 
 ### Test Payment Flow
+
 - [ ] Navigate to pricing.html
 - [ ] Sign in with test account
 - [ ] Click "Choose Plan" button
@@ -142,12 +159,14 @@ The system includes 6 email templates:
 - [ ] Check localStorage for payment data
 
 ### Test Email System
+
 - [ ] Open browser DevTools Console
 - [ ] Check for email queue logs
 - [ ] Verify emails are queued
 - [ ] Check localStorage for 'myWebcodeEmailQueue'
 
 ### Test Refund System
+
 - [ ] Make a payment
 - [ ] Go to payment-history.html
 - [ ] Click "Refund" on a transaction
@@ -155,6 +174,7 @@ The system includes 6 email templates:
 - [ ] Request refund and verify it's processed
 
 ### Test Invoice
+
 - [ ] Go to payment-history.html
 - [ ] Click "Invoice" on a transaction
 - [ ] View invoice details
@@ -210,12 +230,17 @@ myWebcodeUser                  - User account info
 ## Customization
 
 ### Change Pricing
+
 Edit in `pricing.html`:
+
 ```html
-<p class="price"><span class="amount">$9.99</span><span class="period">/month</span></p>
+<p class="price">
+  <span class="amount">$9.99</span><span class="period">/month</span>
+</p>
 ```
 
 Edit in `paypal-integration.js`:
+
 ```javascript
 const paypalPlans = {
     pro: {
@@ -226,7 +251,9 @@ const paypalPlans = {
 ```
 
 ### Change Email Templates
+
 Edit in `email-notifications.js`:
+
 ```javascript
 emailTemplates: {
     paymentConfirmation: {
@@ -237,37 +264,43 @@ emailTemplates: {
 ```
 
 ### Change Refund Policy
+
 Edit in `refund-system.js`:
+
 ```javascript
 const refundPolicies = {
-    pro: {
-        daysAllowed: 7,  // Change this
-        refundPercentage: 100
-    }
-}
+  pro: {
+    daysAllowed: 7, // Change this
+    refundPercentage: 100,
+  },
+};
 ```
 
 ## Troubleshooting
 
 ### PayPal Buttons Not Showing
+
 - Check if Client ID is correct
 - Verify PayPal SDK is loading
 - Check browser console for errors
 - Ensure user is signed in before purchase
 
 ### Emails Not Sending
+
 - Check localStorage 'myWebcodeEmailQueue'
 - Implement backend email service
 - Check email templates are valid
 - Verify recipient email addresses
 
 ### Refund Not Processing
+
 - Check refund eligibility (within time window?)
 - Verify PayPal payment ID is correct
 - Implement PayPal API for actual refunds
 - Check refund policy dates
 
 ### Invoice Not Generating
+
 - Verify payment data is stored
 - Check invoice HTML template
 - Ensure browser print dialog works

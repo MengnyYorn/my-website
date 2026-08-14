@@ -166,23 +166,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const signInForm = document.querySelector('[data-sign-in-form]');
     if (signInForm) signInForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        const email = new FormData(signInForm).get('email');
-        localStorage.setItem(userKey, JSON.stringify({ email }));
+        const formData = new FormData(signInForm);
+        const email = formData.get('email');
+        const existingUser = getUser();
+        
+        // Store/update user info
+        const userData = {
+            name: existingUser?.name || email.split('@')[0],
+            email: email,
+            signInAt: new Date().toISOString()
+        };
+        
+        localStorage.setItem(userKey, JSON.stringify(userData));
         signInForm.reset();
         signInForm.closest('dialog').close();
         updateAccountButton();
-        showMessage('You are signed in. Your progress is saved in this browser.');
+        
+        // Trigger any sign-in callbacks
+        if (typeof onUserSignIn === 'function') onUserSignIn();
+        
+        showMessage('You are signed in. Your progress is saved.');
     });
 
     const registerForm = document.querySelector('[data-register-form]');
     if (registerForm) registerForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const formData = new FormData(registerForm);
-        localStorage.setItem(userKey, JSON.stringify({ name: formData.get('name'), email: formData.get('email') }));
+        localStorage.setItem(userKey, JSON.stringify({ 
+            name: formData.get('name'), 
+            email: formData.get('email'),
+            registeredAt: new Date().toISOString()
+        }));
         registerForm.reset();
         registerForm.closest('dialog').close();
         updateAccountButton();
-        showMessage('Your account is registered. Your progress is saved in this browser.');
+        showMessage('Your account is registered. Your progress is saved.');
     });
 
     document.querySelectorAll('[data-exercise]').forEach((button) => button.addEventListener('click', () => {

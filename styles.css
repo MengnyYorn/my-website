@@ -98,6 +98,263 @@ body { background: linear-gradient(135deg, #e0f2fe, #f5f3ff); }
 .quick-icon { display: grid; width: 2rem; height: 2rem; flex: 0 0 2rem; place-items: center; color: white; font-weight: 800; background: #4f46e5; border-radius: 50%; }
 .quick-start h2 { margin: 0 0 .35rem; font-size: 1.05rem; }
 .quick-start p { margin: 0; color: #475569; font-size: .92rem; line-height: 1.5; }
+
+/* Pricing Page Styles */
+.pricing-hero { background: linear-gradient(135deg, #eef2ff, #f5f3ff); }
+.pricing-section { margin: 3rem auto; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 2rem 0; }
+.pricing-card { padding: 2rem; background: white; border: 2px solid #e2e8f0; border-radius: 1.25rem; transition: all 0.3s ease; }
+.pricing-card:hover { border-color: #4f46e5; box-shadow: 0 20px 40px rgba(79, 70, 229, 0.1); }
+.pricing-card.featured { border-color: #4f46e5; box-shadow: 0 20px 50px rgba(79, 70, 229, 0.15); position: relative; }
+.pricing-card .badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #4f46e5; color: white; padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
+.pricing-card h2 { margin: 0 0 1rem; font-size: 1.5rem; color: #312e81; }
+.pricing-card .description { color: #475569; font-size: 0.95rem; margin: 0.5rem 0 1.5rem; }
+.price { margin: 1rem 0; font-size: 0.9rem; color: #64748b; }
+.price .amount { font-size: 2.5rem; font-weight: 800; color: #312e81; }
+.price .period { margin-left: 0.25rem; }
+.features { list-style: none; margin: 1.5rem 0; padding: 0; }
+.features li { padding: 0.6rem 0; color: #475569; font-size: 0.95rem; }
+.plan-button { display: block; width: 100%; padding: 0.9rem 1rem; margin-top: 1.5rem; color: #312e81; font: inherit; font-weight: 700; text-align: center; cursor: pointer; background: white; border: 2px solid #cbd5e1; border-radius: 0.6rem; transition: all 0.2s ease; }
+.plan-button:hover:not(:disabled) { border-color: #4f46e5; background: #f5f3ff; }
+.plan-button.primary { color: white; background: #4f46e5; border-color: #4f46e5; }
+.plan-button.primary:hover { background: #4338ca; }
+.plan-button:disabled { cursor: not-allowed; opacity: 0.6; }
+#paypal-button-pro, #paypal-button-annual { margin-top: 1rem; }
+
+.faq-section { margin: 4rem auto; }
+.faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.faq-item { padding: 1.5rem; background: white; border: 1px solid #e2e8f0; border-radius: 0.9rem; }
+.faq-item summary { color: #312e81; font-weight: 700; cursor: pointer; user-select: none; }
+.faq-item summary::marker { color: #4f46e5; }
+.faq-item[open] { border-color: #4f46e5; }
+.faq-item p { margin: 1rem 0 0; color: #475569; line-height: 1.6; }
+
+@media (max-width: 900px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .pricing-card.featured { margin: 0; }
+}
+
+/* Payment History Page */
+.payment-history-hero { background: linear-gradient(135deg, #eef2ff, #f5f3ff); }
+.payment-section { margin: 3rem auto 2rem; }
+.payment-container { display: grid; gap: 2rem; }
+
+.subscription-card, .transactions-card, .manage-card {
+    padding: 2rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.25rem;
+}
+
+.subscription-card h2, .transactions-card h2, .manage-card h2 {
+    margin: 0 0 1.5rem;
+    color: #312e81;
+}
+
+.status-info p {
+    margin: 0.75rem 0;
+    color: #475569;
+}
+
+.badge-active {
+    display: inline-block;
+    background: #dcfce7;
+    color: #15803d;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.badge-completed {
+    display: inline-block;
+    background: #dcfce7;
+    color: #15803d;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.badge-pending {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.transactions-table {
+    overflow-x: auto;
+}
+
+.transactions-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transactions-table thead {
+    background: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.transactions-table th {
+    padding: 1rem;
+    text-align: left;
+    color: #64748b;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.transactions-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+}
+
+.transactions-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.action-link {
+    color: #4f46e5;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: none;
+    margin-right: 1rem;
+    font-size: 0.85rem;
+}
+
+.action-link:hover {
+    text-decoration: underline;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #64748b;
+}
+
+.empty-state p {
+    margin: 0 0 1rem;
+}
+
+.invoice-content {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.subscription-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.subscription-actions .action-button,
+.subscription-actions .button {
+    flex: 1;
+    min-width: 150px;
+}
+
+.subscription-actions .danger {
+    background: #fee2e2;
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+.subscription-actions .danger:hover {
+    background: #fecaca;
+}
+
+.info-text {
+    color: #64748b;
+    margin: 0;
+}
+
+/* Refund Policy */
+.refund-policy {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 0.75rem;
+}
+
+.refund-policy h4 {
+    margin: 0 0 0.75rem;
+    color: #1e40af;
+}
+
+.refund-policy ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    list-style: disc;
+}
+
+.refund-policy li {
+    margin: 0.5rem 0;
+    color: #1e40af;
+    font-size: 0.9rem;
+}
+
+/* Active navigation link */
+.nav-links a.active {
+    color: #4f46e5;
+    font-weight: 800;
+}
+
+/* Responsive tables */
+@media (max-width: 768px) {
+    .transactions-table table,
+    .transactions-table thead,
+    .transactions-table tbody,
+    .transactions-table th,
+    .transactions-table td,
+    .transactions-table tr {
+        display: block;
+    }
+
+    .transactions-table thead {
+        display: none;
+    }
+
+    .transactions-table tbody tr {
+        margin-bottom: 1.5rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.75rem;
+    }
+
+    .transactions-table td {
+        padding: 1rem;
+        border: none;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .transactions-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        font-weight: 700;
+        color: #475569;
+    }
+
+    .subscription-actions {
+        flex-direction: column;
+    }
+
+    .subscription-actions .action-button,
+    .subscription-actions .button {
+        width: 100%;
+    }
+}
 .quick-start a { display: inline-block; margin-top: .65rem; color: #4f46e5; font-size: .9rem; font-weight: 700; text-decoration: none; }
 .quick-start a:hover { text-decoration: underline; }
 .learning-dashboard { display: grid; grid-template-columns: 1fr auto auto; gap: 2rem; align-items: center; width: min(1080px, calc(100% - 2rem)); margin: 2rem auto 1.5rem; padding: 2rem; color: white; background: #312e81; border-radius: 1.25rem; }
